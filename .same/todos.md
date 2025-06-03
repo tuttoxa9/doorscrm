@@ -26,6 +26,13 @@
 - Enhanced login page visual appeal
 - Successful deployment to GitHub repository
 
+### 🔧 Netlify Deployment Fix
+- Fixed SSR issues with dynamic import for Three.js component
+- Updated netlify.toml with correct build configuration
+- Added .nvmrc for Node.js version specification
+- Resolved build errors and enabled static export
+- Successfully pushed fixes to GitHub
+
 ## Notes
 - Project uses Next.js 15.2.4 with React 19
 - Login page is at `app/(auth)/login/page.tsx`
