@@ -53,14 +53,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
+    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-black">
       {/* Анимированный фон */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 opacity-20">
         <Silk speed={3} scale={2} noiseIntensity={1.2} rotation={Math.PI / 6} />
       </div>
 
       {/* Форма входа */}
-      <Card className="relative z-10 w-full max-w-md backdrop-blur-sm bg-background/80 border border-border/50 shadow-2xl">
+      <Card className="relative z-10 w-full max-w-md backdrop-blur-sm bg-black/90 border border-neutral-800/50 shadow-[0_0_50px_rgba(0,0,0,0.8)] text-white rounded-2xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">MAESTRO Admin</CardTitle>
           <CardDescription>Войдите в административную консоль</CardDescription>
@@ -74,7 +74,7 @@ export default function LoginPage() {
               </Alert>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-neutral-300">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -84,10 +84,11 @@ export default function LoginPage() {
                 onKeyPress={handleKeyPress}
                 required
                 autoFocus
+                className="bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-400 focus:border-neutral-500 focus:ring-neutral-500"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Пароль</Label>
+              <Label htmlFor="password" className="text-neutral-300">Пароль</Label>
               <Input
                 id="password"
                 type="password"
@@ -95,12 +96,13 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyPress={handleKeyPress}
                 required
+                className="bg-neutral-800 border-neutral-600 text-white placeholder:text-neutral-400 focus:border-neutral-500 focus:ring-neutral-500"
               />
             </div>
           </form>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" onClick={handleLogin} disabled={isLoading || !email || !password}>
+          <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white border-neutral-700" onClick={handleLogin} disabled={isLoading || !email || !password}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Вход...
