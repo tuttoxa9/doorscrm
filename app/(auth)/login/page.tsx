@@ -137,80 +137,96 @@ export default function LoginPage() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          {/* White Light Source Behind Card */}
-          <div
-            className="absolute inset-0 rounded-xl transition-all duration-300 ease-out"
-            style={{
-              background: `
-                radial-gradient(
-                  ellipse ${300 + cardMousePosition.x * 2}px ${200 + cardMousePosition.y * 2}px at ${cardMousePosition.x}% ${cardMousePosition.y}%,
-                  rgba(255, 255, 255, 0.8) 0%,
-                  rgba(255, 255, 255, 0.6) 20%,
-                  rgba(255, 255, 255, 0.4) 40%,
-                  rgba(255, 255, 255, 0.2) 60%,
-                  rgba(255, 255, 255, 0.1) 80%,
-                  transparent 100%
-                )
-              `,
-              transform: `
-                translate3d(0, 0, -20px)
-                scale(${isHovered ? 1.2 : 1.1})
-              `,
-              filter: `blur(${isHovered ? '30px' : '25px'})`,
-              zIndex: -1
-            }}
-          />
-
-          {/* Directional Light Rays */}
-          <div
-            className="absolute inset-0 rounded-xl transition-all duration-500 ease-out"
-            style={{
-              background: `
-                conic-gradient(
-                  from ${cardMousePosition.x * 3 + cardMousePosition.y * 2}deg at ${cardMousePosition.x}% ${cardMousePosition.y}%,
-                  rgba(255, 255, 255, 0.3) 0deg,
-                  transparent 45deg,
-                  rgba(255, 255, 255, 0.2) 90deg,
-                  transparent 135deg,
-                  rgba(255, 255, 255, 0.3) 180deg,
-                  transparent 225deg,
-                  rgba(255, 255, 255, 0.2) 270deg,
-                  transparent 315deg,
-                  rgba(255, 255, 255, 0.3) 360deg
-                )
-              `,
-              transform: `
-                translate3d(0, 0, -15px)
-                scale(${isHovered ? 1.3 : 1.2})
-                rotate(${cardMousePosition.x * 0.2 - cardMousePosition.y * 0.1}deg)
-              `,
-              filter: `blur(20px)`,
-              zIndex: -1
-            }}
-          />
-
-          {/* Card Shadow */}
+          {/* Subtle White Light Source Behind Card */}
           <div
             className="absolute inset-0 rounded-xl transition-all duration-700 ease-out"
             style={{
               background: `
                 radial-gradient(
-                  ellipse at ${100 - cardMousePosition.x}% ${100 - cardMousePosition.y}%,
-                  rgba(0, 0, 0, 0.4) 0%,
-                  rgba(0, 0, 0, 0.6) 30%,
-                  rgba(0, 0, 0, 0.8) 60%,
-                  rgba(0, 0, 0, 0.9) 100%
+                  ellipse 600px 400px at 50% 50%,
+                  rgba(255, 255, 255, 0.3) 0%,
+                  rgba(255, 255, 255, 0.2) 30%,
+                  rgba(255, 255, 255, 0.1) 60%,
+                  rgba(255, 255, 255, 0.05) 80%,
+                  transparent 100%
+                )
+              `,
+              transform: `
+                translate3d(0, 0, -20px)
+                scale(${isHovered ? 1.15 : 1.05})
+              `,
+              filter: `blur(40px)`,
+              zIndex: -1
+            }}
+          />
+
+          {/* Gentle Light Rays */}
+          <div
+            className="absolute inset-0 rounded-xl transition-all duration-1000 ease-out"
+            style={{
+              background: `
+                linear-gradient(
+                  ${45 + cardMousePosition.x * 0.1}deg,
+                  rgba(255, 255, 255, 0.15) 0%,
+                  rgba(255, 255, 255, 0.08) 25%,
+                  rgba(255, 255, 255, 0.12) 50%,
+                  rgba(255, 255, 255, 0.06) 75%,
+                  rgba(255, 255, 255, 0.1) 100%
+                )
+              `,
+              transform: `
+                translate3d(0, 0, -15px)
+                scale(${isHovered ? 1.2 : 1.1})
+              `,
+              filter: `blur(30px)`,
+              zIndex: -1
+            }}
+          />
+
+          {/* Ambient Glow */}
+          <div
+            className="absolute inset-0 rounded-xl transition-all duration-1500 ease-out"
+            style={{
+              background: `
+                radial-gradient(
+                  circle at ${50 + (cardMousePosition.x - 50) * 0.3}% ${50 + (cardMousePosition.y - 50) * 0.3}%,
+                  rgba(255, 255, 255, 0.2) 0%,
+                  rgba(255, 255, 255, 0.1) 40%,
+                  rgba(255, 255, 255, 0.05) 70%,
+                  transparent 100%
+                )
+              `,
+              transform: `
+                translate3d(0, 0, -10px)
+                scale(${isHovered ? 1.25 : 1.15})
+              `,
+              filter: `blur(35px)`,
+              zIndex: -1
+            }}
+          />
+
+          {/* Soft Card Shadow */}
+          <div
+            className="absolute inset-0 rounded-xl transition-all duration-1000 ease-out"
+            style={{
+              background: `
+                radial-gradient(
+                  ellipse at ${60 + (cardMousePosition.x - 50) * 0.2}% ${60 + (cardMousePosition.y - 50) * 0.2}%,
+                  rgba(0, 0, 0, 0.3) 0%,
+                  rgba(0, 0, 0, 0.5) 40%,
+                  rgba(0, 0, 0, 0.7) 70%,
+                  rgba(0, 0, 0, 0.8) 100%
                 )
               `,
               transform: `
                 translate3d(
-                  ${(cardMousePosition.x - 50) * 0.3}px,
-                  ${(cardMousePosition.y - 50) * 0.3 + 15}px,
+                  ${(cardMousePosition.x - 50) * 0.15}px,
+                  ${(cardMousePosition.y - 50) * 0.15 + 20}px,
                   -25px
                 )
-                scale(${isHovered ? 1.1 : 1})
+                scale(${isHovered ? 1.05 : 1})
               `,
-              filter: `blur(${isHovered ? '25px' : '20px'})`,
+              filter: `blur(${isHovered ? '30px' : '25px'})`,
               zIndex: -1
             }}
           />
@@ -221,27 +237,27 @@ export default function LoginPage() {
             style={{
               background: `
                 linear-gradient(
-                  ${135 + cardMousePosition.x * 0.5}deg,
-                  rgba(255, 255, 255, ${0.12 + cardMousePosition.x * 0.001}) 0%,
-                  rgba(255, 255, 255, ${0.08 + cardMousePosition.y * 0.001}) 50%,
-                  rgba(255, 255, 255, ${0.1 + (cardMousePosition.x + cardMousePosition.y) * 0.0005}) 100%
+                  ${135 + cardMousePosition.x * 0.2}deg,
+                  rgba(255, 255, 255, ${0.12 + cardMousePosition.x * 0.0005}) 0%,
+                  rgba(255, 255, 255, ${0.08 + cardMousePosition.y * 0.0005}) 50%,
+                  rgba(255, 255, 255, ${0.1 + (cardMousePosition.x + cardMousePosition.y) * 0.0003}) 100%
                 )
               `,
-              border: `1px solid rgba(255, 255, 255, ${0.2 + (cardMousePosition.x + cardMousePosition.y) * 0.002})`,
+              border: `1px solid rgba(255, 255, 255, ${0.2 + (cardMousePosition.x + cardMousePosition.y) * 0.001})`,
               backdropFilter: 'blur(20px)',
               transform: `
                 perspective(1200px)
-                rotateX(${isHovered ? -3 : (cardMousePosition.y - 50) * 0.1}deg)
-                rotateY(${isHovered ? 3 : (cardMousePosition.x - 50) * 0.1}deg)
-                translateZ(${isHovered ? 25 : 10}px)
-                scale(${isHovered ? 1.02 : 1})
+                rotateX(${isHovered ? -2 : (cardMousePosition.y - 50) * 0.05}deg)
+                rotateY(${isHovered ? 2 : (cardMousePosition.x - 50) * 0.05}deg)
+                translateZ(${isHovered ? 20 : 8}px)
+                scale(${isHovered ? 1.01 : 1})
               `,
               boxShadow: `
-                0 ${isHovered ? 35 : 25}px ${isHovered ? 70 : 50}px rgba(0, 0, 0, 0.4),
-                0 ${isHovered ? 20 : 15}px ${isHovered ? 40 : 30}px rgba(0, 0, 0, 0.3),
-                0 0 ${isHovered ? 50 : 30}px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, ${0.15 + cardMousePosition.x * 0.002}),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2)
+                0 ${isHovered ? 30 : 20}px ${isHovered ? 60 : 40}px rgba(0, 0, 0, 0.3),
+                0 ${isHovered ? 15 : 10}px ${isHovered ? 30 : 20}px rgba(0, 0, 0, 0.2),
+                0 0 ${isHovered ? 40 : 25}px rgba(255, 255, 255, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, ${0.15 + cardMousePosition.x * 0.001}),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.15)
               `
             }}
           >
@@ -261,7 +277,7 @@ export default function LoginPage() {
               <CardDescription
                 className="transition-all duration-300"
                 style={{
-                  color: `rgba(255, 255, 255, ${0.7 + cardMousePosition.x * 0.002})`,
+                  color: `rgba(255, 255, 255, ${0.7 + cardMousePosition.x * 0.0008})`,
                   textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                 }}
               >
@@ -292,7 +308,7 @@ export default function LoginPage() {
                     htmlFor="email"
                     className="transition-all duration-300"
                     style={{
-                      color: `rgba(255, 255, 255, ${0.8 + cardMousePosition.x * 0.002})`,
+                      color: `rgba(255, 255, 255, ${0.8 + cardMousePosition.x * 0.0008})`,
                       textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                     }}
                   >
@@ -309,13 +325,13 @@ export default function LoginPage() {
                     autoFocus
                     className="text-white transition-all duration-300"
                     style={{
-                      background: `rgba(255, 255, 255, ${0.08 + cardMousePosition.x * 0.001})`,
-                      border: `1px solid rgba(255, 255, 255, ${0.25 + cardMousePosition.y * 0.002})`,
+                      background: `rgba(255, 255, 255, ${0.08 + cardMousePosition.x * 0.0005})`,
+                      border: `1px solid rgba(255, 255, 255, ${0.25 + cardMousePosition.y * 0.001})`,
                       backdropFilter: 'blur(10px)',
                       boxShadow: `
                         inset 0 2px 4px rgba(0, 0, 0, 0.2),
-                        0 1px 0 rgba(255, 255, 255, ${0.15 + cardMousePosition.x * 0.001}),
-                        0 0 10px rgba(255, 255, 255, 0.1)
+                        0 1px 0 rgba(255, 255, 255, ${0.15 + cardMousePosition.x * 0.0005}),
+                        0 0 10px rgba(255, 255, 255, 0.05)
                       `,
                       '::placeholder': {
                         color: 'rgba(255, 255, 255, 0.6)'
@@ -329,7 +345,7 @@ export default function LoginPage() {
                     htmlFor="password"
                     className="transition-all duration-300"
                     style={{
-                      color: `rgba(255, 255, 255, ${0.8 + cardMousePosition.y * 0.002})`,
+                      color: `rgba(255, 255, 255, ${0.8 + cardMousePosition.y * 0.0008})`,
                       textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                     }}
                   >
@@ -344,13 +360,13 @@ export default function LoginPage() {
                     required
                     className="text-white transition-all duration-300"
                     style={{
-                      background: `rgba(255, 255, 255, ${0.08 + cardMousePosition.y * 0.001})`,
-                      border: `1px solid rgba(255, 255, 255, ${0.25 + cardMousePosition.x * 0.002})`,
+                      background: `rgba(255, 255, 255, ${0.08 + cardMousePosition.y * 0.0005})`,
+                      border: `1px solid rgba(255, 255, 255, ${0.25 + cardMousePosition.x * 0.001})`,
                       backdropFilter: 'blur(10px)',
                       boxShadow: `
                         inset 0 2px 4px rgba(0, 0, 0, 0.2),
-                        0 1px 0 rgba(255, 255, 255, ${0.15 + cardMousePosition.y * 0.001}),
-                        0 0 10px rgba(255, 255, 255, 0.1)
+                        0 1px 0 rgba(255, 255, 255, ${0.15 + cardMousePosition.y * 0.0005}),
+                        0 0 10px rgba(255, 255, 255, 0.05)
                       `
                     }}
                   />
@@ -366,18 +382,18 @@ export default function LoginPage() {
                 style={{
                   background: `
                     linear-gradient(
-                      ${135 + cardMousePosition.x * 0.5}deg,
-                      rgba(255, 255, 255, ${0.15 + cardMousePosition.x * 0.002}) 0%,
-                      rgba(255, 255, 255, ${0.1 + cardMousePosition.y * 0.002}) 50%,
-                      rgba(255, 255, 255, ${0.12 + (cardMousePosition.x + cardMousePosition.y) * 0.001}) 100%
+                      ${135 + cardMousePosition.x * 0.2}deg,
+                      rgba(255, 255, 255, ${0.15 + cardMousePosition.x * 0.0008}) 0%,
+                      rgba(255, 255, 255, ${0.1 + cardMousePosition.y * 0.0008}) 50%,
+                      rgba(255, 255, 255, ${0.12 + (cardMousePosition.x + cardMousePosition.y) * 0.0005}) 100%
                     )
                   `,
                   backdropFilter: 'blur(15px)',
                   boxShadow: `
                     0 8px 25px rgba(0, 0, 0, 0.3),
                     0 4px 15px rgba(0, 0, 0, 0.2),
-                    0 0 20px rgba(255, 255, 255, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, ${0.2 + cardMousePosition.x * 0.002}),
+                    0 0 20px rgba(255, 255, 255, 0.05),
+                    inset 0 1px 0 rgba(255, 255, 255, ${0.2 + cardMousePosition.x * 0.0008}),
                     inset 0 -1px 0 rgba(0, 0, 0, 0.2)
                   `
                 }}
@@ -388,10 +404,10 @@ export default function LoginPage() {
                   style={{
                     background: `
                       radial-gradient(
-                        circle at ${cardMousePosition.x}% ${cardMousePosition.y}%,
-                        rgba(255, 255, 255, 0.3) 0%,
-                        rgba(255, 255, 255, 0.1) 50%,
-                        transparent 100%
+                        circle at 50% 50%,
+                        rgba(255, 255, 255, 0.2) 0%,
+                        rgba(255, 255, 255, 0.1) 40%,
+                        transparent 80%
                       )
                     `
                   }}
