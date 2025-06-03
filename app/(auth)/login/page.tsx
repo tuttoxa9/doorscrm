@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertCircle, Loader2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import Silk from "@/components/ui/silk-background"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -47,8 +48,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <Card className="w-full max-w-md">
+    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
+      {/* Анимированный фон */}
+      <div className="absolute inset-0 z-0">
+        <Silk speed={3} scale={2} noiseIntensity={1.2} rotation={Math.PI / 6} />
+      </div>
+
+      {/* Форма входа */}
+      <Card className="relative z-10 w-full max-w-md backdrop-blur-sm bg-background/80 border border-border/50 shadow-2xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">MAESTRO Admin</CardTitle>
           <CardDescription>Войдите в административную консоль</CardDescription>
