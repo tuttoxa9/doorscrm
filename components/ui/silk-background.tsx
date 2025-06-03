@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 "use client";
 
+import dynamic from "next/dynamic";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { forwardRef, useRef, useMemo, useLayoutEffect } from "react";
 import { Color } from "three";
@@ -137,7 +138,7 @@ const getRandomLightColor = () => {
   return `#${finalR.toString(16).padStart(2, '0')}${finalG.toString(16).padStart(2, '0')}${finalB.toString(16).padStart(2, '0')}`;
 };
 
-const Silk = ({
+const SilkCanvas = ({
   speed = 5,
   scale = 1,
   noiseIntensity = 1.5,
@@ -171,5 +172,11 @@ const Silk = ({
     </Canvas>
   );
 };
+
+// Динамический импорт для предотвращения проблем с SSR
+const Silk = dynamic(() => Promise.resolve(SilkCanvas), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
+});
 
 export default Silk;

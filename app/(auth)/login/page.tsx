@@ -12,7 +12,12 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertCircle, Loader2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import Silk from "@/components/ui/silk-background"
+import dynamic from "next/dynamic"
+
+const Silk = dynamic(() => import("@/components/ui/silk-background"), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
+})
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
