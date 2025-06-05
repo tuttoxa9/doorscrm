@@ -14,9 +14,9 @@ import { AlertCircle, Loader2 } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import dynamic from "next/dynamic"
 
-const Silk = dynamic(() => import("@/components/ui/silk-background"), {
+const Aurora = dynamic(() => import("@/components/ui/aurora"), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
+  loading: () => <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black" />
 })
 
 export default function LoginPage() {
@@ -55,8 +55,12 @@ export default function LoginPage() {
   return (
     <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-black">
       {/* Анимированный фон */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <Silk speed={3} scale={2} noiseIntensity={1.2} rotation={Math.PI / 6} />
+      <div className="absolute inset-0 z-0">
+        <Aurora
+          colorStops={["#1f2937", "#374151", "#1f2937"]}
+          amplitude={0.8}
+          blend={0.6}
+        />
       </div>
 
       {/* Форма входа */}
