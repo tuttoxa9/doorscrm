@@ -1,41 +1,48 @@
-# DoorsCRM - Animated Background Implementation
+# DoorsCRM Dock Adaptation Tasks
 
-## Current Status: Getting Started
+## Current Issues
+- [ ] Dock bar buttons not clicking correctly/not responding to clicks
+- [ ] Interface takes full screen instead of being compact for dock bar usage
+- [ ] Need to fit entire interface within red boundaries shown in screenshot
 
-## Tasks
+## Main Tasks
 
-### ✅ Completed
-- Clone repository
-- Analyze project structure
-- Identify login page location
+### 1. Fix Dock Navigation Issues (HIGH PRIORITY)
+- [x] Investigate navigation-dock.tsx for button click issues
+- [x] Fix unresponsive buttons in dock bar
+- [x] Ensure all dock buttons have proper click handlers
+- [x] Updated ThemeToggle and ImageUpload components for dock compatibility
 
-### ✅ Completed
-- Clone repository
-- Analyze project structure
-- Identify login page location
-- Install @react-three/fiber and three dependencies
-- Create Silk component with shader material
-- Add random color generation function
-- Update login page to include animated background
+### 2. Create Compact Interface Layout
+- [x] Add Aurora background component using provided OGL code
+- [x] Modify main layout to be contained within dock boundaries
+- [x] Reduce overall interface size and spacing
+- [x] Create wrapper container for compact view
 
-### ✅ All Tasks Completed Successfully!
+### 3. Layout Adaptations
+- [x] Modify dashboard layout for compact view
+- [x] Adjust header component for smaller space
+- [ ] in_progress - Update all pages for compact mode
+- [x] Ensure all pages fit within dock boundaries
 
-**Final Implementation:**
-- Created beautiful animated Three.js background component
-- Random light-grey color generation on each page load
-- Enhanced login page visual appeal
-- Successful deployment to GitHub repository
+### 4. Styling Updates
+- [x] Update CSS for compact mode
+- [x] Adjust padding, margins, and font sizes
+- [x] Optimize table layouts for smaller space (products page done)
+- [ ] Update remaining pages for compact design
 
-### 🔧 Netlify Deployment Fix
-- Fixed SSR issues with dynamic import for Three.js component
-- Updated netlify.toml with correct build configuration
-- Added .nvmrc for Node.js version specification
-- Resolved build errors and enabled static export
-- Successfully pushed fixes to GitHub
+### 5. Integration & Testing
+- [ ] Install dependencies and test current functionality
+- [ ] Test dock navigation after fixes
+- [ ] Ensure responsive design works in compact mode
+- [ ] Version the changes
 
-## Notes
-- Project uses Next.js 15.2.4 with React 19
-- Login page is at `app/(auth)/login/page.tsx`
-- Auth layout is at `app/(auth)/layout.tsx`
-- Need to add Three.js for the 3D animated background
-- Colors should be random light/grey shades of standard colors (red, blue, green, etc.)
+### 6. Git Operations
+- [ ] Configure git with provided token
+- [ ] Push all changes back to repository
+
+## Background Info
+- Need to integrate Aurora component with OGL for background
+- Dock should contain entire interface within specified boundaries
+- Rest of screen uses Aurora animated background
+- Fix navigation issues first, then adapt layout for compact view

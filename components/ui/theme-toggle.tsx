@@ -21,10 +21,10 @@ export function ThemeToggle({ inDock = false }: { inDock?: boolean }) {
         <Button
           variant={inDock ? "ghost" : "outline"}
           size={inDock ? "sm" : "icon"}
-          className={inDock ? "h-full w-full p-0" : ""}
+          className={inDock ? "h-5 w-5 p-0 border-0 bg-transparent shadow-none hover:bg-transparent" : ""}
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun className={`${inDock ? 'h-4 w-4' : 'h-[1.2rem] w-[1.2rem]'} rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-muted-foreground`} />
+          <Moon className={`absolute ${inDock ? 'h-4 w-4' : 'h-[1.2rem] w-[1.2rem]'} rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-muted-foreground`} />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

@@ -56,37 +56,37 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex h-[calc(100vh-120px)] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div className="flex h-[200px] items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin" />
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Панель управления</h1>
-        <p className="text-muted-foreground">Обзор данных и статистика вашего магазина</p>
+        <h1 className="text-2xl font-bold tracking-tight">Панель управления</h1>
+        <p className="text-sm text-muted-foreground">Обзор данных и статистика вашего магазина</p>
       </div>
 
       <DashboardStats stats={stats} />
 
       <Tabs defaultValue="recent">
-        <TabsList>
-          <TabsTrigger value="recent">Последние заказы</TabsTrigger>
-          <TabsTrigger value="analytics">Аналитика</TabsTrigger>
+        <TabsList className="h-8">
+          <TabsTrigger value="recent" className="text-sm">Последние заказы</TabsTrigger>
+          <TabsTrigger value="analytics" className="text-sm">Аналитика</TabsTrigger>
         </TabsList>
-        <TabsContent value="recent" className="space-y-4">
+        <TabsContent value="recent" className="space-y-3 mt-3">
           <RecentOrders orders={recentOrders} />
         </TabsContent>
-        <TabsContent value="analytics">
+        <TabsContent value="analytics" className="mt-3">
           <Card>
-            <CardHeader>
-              <CardTitle>Аналитика</CardTitle>
-              <CardDescription>Просмотр статистики и аналитических данных</CardDescription>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">Аналитика</CardTitle>
+              <CardDescription className="text-sm">Просмотр статистики и аналитических данных</CardDescription>
             </CardHeader>
-            <CardContent className="h-[400px] flex items-center justify-center">
-              <p className="text-muted-foreground">Аналитические данные будут доступны в ближайшее время</p>
+            <CardContent className="h-[200px] flex items-center justify-center">
+              <p className="text-sm text-muted-foreground">Аналитические данные будут доступны в ближайшее время</p>
             </CardContent>
           </Card>
         </TabsContent>

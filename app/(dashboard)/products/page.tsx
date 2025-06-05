@@ -102,39 +102,41 @@ export default function ProductsPage() {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Товары</h1>
-          <p className="text-muted-foreground">Управление товарами в каталоге</p>
+          <h1 className="text-2xl font-bold tracking-tight">Товары</h1>
+          <p className="text-sm text-muted-foreground">Управление товарами в каталоге</p>
         </div>
         <div className="flex gap-2">
           <Button
             variant="outline"
+            size="sm"
             className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
             onClick={() => setBulkDeleteOpen(true)}
           >
-            <Trash2 className="mr-2 h-4 w-4" />
+            <Trash2 className="mr-1 h-3 w-3" />
             Очистить все
           </Button>
           <Button
+            size="sm"
             onClick={() => {
               setCurrentProduct(null)
               setIsDialogOpen(true)
             }}
           >
-            <Plus className="mr-2 h-4 w-4" /> Добавить товар
+            <Plus className="mr-1 h-3 w-3" /> Добавить товар
           </Button>
         </div>
       </div>
 
       <div className="flex items-center">
-        <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <div className="relative flex-1 max-w-xs">
+          <Search className="absolute left-2 top-2 h-3 w-3 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Поиск товаров..."
-            className="pl-8"
+            className="pl-7 h-8 text-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -142,30 +144,30 @@ export default function ProductsPage() {
       </div>
 
       {loading ? (
-        <div className="flex h-[400px] items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin" />
+        <div className="flex h-[300px] items-center justify-center">
+          <Loader2 className="h-6 w-6 animate-spin" />
         </div>
       ) : (
         <div className="rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[80px]">Фото</TableHead>
-                <TableHead>Название</TableHead>
-                <TableHead>Категория</TableHead>
-                <TableHead>Цена (BYN)</TableHead>
-                <TableHead>Цвета</TableHead>
-                <TableHead>Статус</TableHead>
-                <TableHead className="text-right">Действия</TableHead>
+                <TableHead className="w-[60px] py-2">Фото</TableHead>
+                <TableHead className="py-2">Название</TableHead>
+                <TableHead className="py-2">Категория</TableHead>
+                <TableHead className="py-2">Цена (BYN)</TableHead>
+                <TableHead className="py-2">Цвета</TableHead>
+                <TableHead className="py-2">Статус</TableHead>
+                <TableHead className="text-right py-2">Действия</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
                   <TableRow key={product.id}>
-                    <TableCell>
+                    <TableCell className="py-2">
                       {product.images && product.images.length > 0 ? (
-                        <div className="relative h-10 w-10 overflow-hidden rounded-md">
+                        <div className="relative h-8 w-8 overflow-hidden rounded-md">
                           <Image
                             src={product.images[0] || "/placeholder.svg"}
                             alt={product.name}
@@ -174,51 +176,51 @@ export default function ProductsPage() {
                           />
                         </div>
                       ) : (
-                        <div className="h-10 w-10 rounded-md bg-muted flex items-center justify-center">
+                        <div className="h-8 w-8 rounded-md bg-muted flex items-center justify-center">
                           <span className="text-xs text-muted-foreground">Нет</span>
                         </div>
                       )}
                     </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{product.name}</span>
-                        {product.featured && <Star className="h-4 w-4 text-yellow-500 fill-current" />}
+                    <TableCell className="py-2">
+                      <div className="flex items-center gap-1">
+                        <span className="font-medium text-sm">{product.name}</span>
+                        {product.featured && <Star className="h-3 w-3 text-yellow-500 fill-current" />}
                       </div>
                     </TableCell>
-                    <TableCell>{product.category}</TableCell>
-                    <TableCell>
+                    <TableCell className="py-2 text-sm">{product.category}</TableCell>
+                    <TableCell className="py-2 text-sm">
                       {product.price?.min === product.price?.max
                         ? `${product.price.min.toLocaleString()} BYN`
                         : `${product.price?.min?.toLocaleString()} - ${product.price?.max?.toLocaleString()} BYN`}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="py-2">
                       <div className="flex flex-wrap gap-1">
-                        {product.colors?.slice(0, 3).map((color, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
+                        {product.colors?.slice(0, 2).map((color, index) => (
+                          <Badge key={index} variant="outline" className="text-xs px-1 py-0">
                             {color}
                           </Badge>
                         ))}
-                        {product.colors && product.colors.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{product.colors.length - 3}
+                        {product.colors && product.colors.length > 2 && (
+                          <Badge variant="outline" className="text-xs px-1 py-0">
+                            +{product.colors.length - 2}
                           </Badge>
                         )}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="py-2">
                       <span
-                        className={`status-badge ${product.inStock ? "status-badge-completed" : "status-badge-cancelled"}`}
+                        className={`status-badge text-xs ${product.inStock ? "status-badge-completed" : "status-badge-cancelled"}`}
                       >
                         {product.inStock ? "В наличии" : "Нет в наличии"}
                       </span>
                     </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button variant="ghost" size="icon" onClick={() => handleEdit(product)}>
-                          <Edit className="h-4 w-4" />
+                    <TableCell className="text-right py-2">
+                      <div className="flex justify-end gap-1">
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(product)}>
+                          <Edit className="h-3 w-3" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => confirmDelete(product.id)}>
-                          <Trash2 className="h-4 w-4" />
+                        <Button variant="ghost" size="sm" onClick={() => confirmDelete(product.id)}>
+                          <Trash2 className="h-3 w-3" />
                         </Button>
                       </div>
                     </TableCell>
@@ -226,7 +228,7 @@ export default function ProductsPage() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={7} className="h-24 text-center">
+                  <TableCell colSpan={7} className="h-16 text-center text-sm">
                     {searchQuery ? "Товары не найдены" : "Нет товаров"}
                   </TableCell>
                 </TableRow>
@@ -237,10 +239,10 @@ export default function ProductsPage() {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-lg bg-background">
+        <DialogContent className="max-w-md bg-background max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-lg">{currentProduct ? "Редактировать товар" : "Добавить товар"}</DialogTitle>
-            <DialogDescription className="text-sm">
+            <DialogTitle className="text-base">{currentProduct ? "Редактировать товар" : "Добавить товар"}</DialogTitle>
+            <DialogDescription className="text-xs">
               {currentProduct
                 ? "Измените информацию о товаре и нажмите Сохранить"
                 : "Заполните информацию о новом товаре"}

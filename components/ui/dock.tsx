@@ -64,11 +64,25 @@ function DockItem({
       onHoverEnd={() => isHovered.set(0)}
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (onClick) {
+          onClick();
+        }
+      }}
       className={`relative inline-flex items-center justify-center rounded-full bg-background border border-border shadow-md cursor-pointer transition-colors hover:bg-accent ${className}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (onClick) {
+            onClick();
+          }
+        }
+      }}
     >
       {Children.map(children, (child) =>
         cloneElement(child as React.ReactElement, { isHovered })
@@ -162,7 +176,7 @@ export default function Dock({
   return (
     <motion.div
       style={{ height, scrollbarWidth: "none" }}
-      className="mx-2 flex max-w-full items-center fixed bottom-0 left-0 right-0 z-50"
+      className="mx-2 flex max-w-full items-center fixed bottom-0 left-0 right-0 z-[100]"
     >
       <motion.div
         onMouseMove={({ pageX }) => {

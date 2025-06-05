@@ -159,9 +159,9 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
           variant="ghost"
           size={inDock ? "sm" : "icon"}
           title={inDock ? undefined : "Загрузить изображение"}
-          className={inDock ? "h-full w-full p-0" : ""}
+          className={inDock ? "h-5 w-5 p-0 border-0 bg-transparent shadow-none hover:bg-transparent" : ""}
         >
-          <Star className={inDock ? "h-5 w-5" : "h-4 w-4"} />
+          <Star className={`${inDock ? "h-4 w-4" : "h-4 w-4"} text-muted-foreground`} />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
