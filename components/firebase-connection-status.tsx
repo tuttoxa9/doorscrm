@@ -161,14 +161,26 @@ export function FirebaseConnectionStatus() {
         </div>
 
         {(status.storage === 'error' || status.firestore === 'error') && (
-          <div className="text-xs text-gray-600 bg-gray-50 p-2 rounded">
-            <strong>Возможные решения:</strong>
-            <ul className="mt-1 space-y-1">
-              <li>• Проверьте правила безопасности Firebase</li>
-              <li>• Убедитесь что Storage включен в проекте</li>
-              <li>• Проверьте настройки CORS</li>
-              <li>• Проверьте квоты проекта</li>
-            </ul>
+          <div className="space-y-3">
+            <div className="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+              <strong>Возможные решения:</strong>
+              <ul className="mt-1 space-y-1">
+                <li>• Проверьте правила безопасности Firebase</li>
+                <li>• Убедитесь что Storage включен в проекте</li>
+                <li>• Проверьте настройки CORS</li>
+                <li>• Проверьте квоты проекта</li>
+              </ul>
+            </div>
+
+            <Button
+              variant="destructive"
+              size="sm"
+              className="w-full"
+              onClick={() => window.open('/fix-firebase', '_blank')}
+            >
+              <AlertCircle className="h-4 w-4 mr-2" />
+              Исправить ошибку Firebase
+            </Button>
           </div>
         )}
       </CardContent>

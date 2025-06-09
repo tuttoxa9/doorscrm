@@ -3,7 +3,8 @@
 import { useState, useRef } from "react"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { doc, setDoc } from "firebase/firestore"
-import { storage, db } from "@/lib/firebase/firebase-config"
+import { signInAnonymously } from "firebase/auth"
+import { storage, db, auth } from "@/lib/firebase/firebase-config"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { toast } from "sonner"
@@ -107,6 +108,11 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
     setUploading(true)
 
     try {
+      // Сначала выполняем анонимную аутентификацию
+      console.log('Выполняем анонимную аутентификацию...')
+      const userCredential = await signInAnonymously(auth)
+      console.log('Анонимная аутентификация успешна:', userCredential.user.uid)
+
       // Генерируем уникальный ID продукта
       const productId = generateProductId()
 
@@ -118,7 +124,7 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
       const metadata = {
         contentType: file.type,
         customMetadata: {
-          'uploadedBy': 'anonymous',
+          'uploadedBy': userCredential.user.uid,
           'originalName': file.name,
           'productId': productId
         }
@@ -126,6 +132,7 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
 
       console.log('Начинаем загрузку файла:', fileName)
       console.log('Метаданные:', metadata)
+      console.log('User ID:', userCredential.user.uid)
 
       // Загружаем файл с метаданными
       const uploadResult = await uploadBytes(storageRef, file, metadata)
@@ -146,7 +153,8 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
         updatedAt: new Date(),
         fileName: fileName,
         originalName: file.name,
-        fileSize: file.size
+        fileSize: file.size,
+        uploadedBy: userCredential.user.uid
       }
 
       console.log('Сохраняем в Firestore:', productData)
@@ -178,13 +186,15 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
       } else if (error.code === 'storage/canceled') {
         errorMessage = "Загрузка была отменена"
       } else if (error.code === 'storage/unknown') {
-        errorMessage = "Неизвестная ошибка Firebase Storage. Проверьте конфигурацию проекта."
+        errorMessage = "Неизвестная ошибка Firebase Storage. Проверьте правила безопасности и конфигурацию проекта."
       } else if (error.code === 'storage/quota-exceeded') {
         errorMessage = "Превышена квота хранилища"
       } else if (error.code === 'storage/invalid-format') {
         errorMessage = "Неверный формат файла"
       } else if (error.code === 'storage/invalid-argument') {
         errorMessage = "Неверные аргументы для загрузки"
+      } else if (error.code === 'auth/operation-not-allowed') {
+        errorMessage = "Анонимная аутентификация отключена в Firebase"
       }
 
       toast.error(errorMessage)
