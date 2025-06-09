@@ -6,7 +6,8 @@ import { auth } from "@/lib/firebase/firebase-config"
 import { useAuth } from "@/lib/firebase/use-auth"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { ImageUpload } from "@/components/ui/image-upload"
-import Dock, { DockItem } from "@/components/ui/dock"
+import DockOptimized, { DockItem } from "@/components/ui/dock-optimized"
+import { useMobileDetection } from "@/hooks/use-mobile-detection"
 import {
   Home,
   Package2,
@@ -67,6 +68,7 @@ export function NavigationDock() {
   const pathname = usePathname()
   const router = useRouter()
   const { user } = useAuth()
+  const { isMobile } = useMobileDetection()
 
   const handleSignOut = async () => {
     try {
@@ -128,5 +130,12 @@ export function NavigationDock() {
     },
   ]
 
-  return <Dock items={dockItems} />
+  return (
+    <DockOptimized
+      items={dockItems}
+      baseItemSize={isMobile ? 36 : 50}
+      panelHeight={isMobile ? 50 : 64}
+      magnification={isMobile ? 40 : 70}
+    />
+  )
 }

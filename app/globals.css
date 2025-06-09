@@ -191,3 +191,79 @@ textarea {
 .progress-slide {
   animation: slide-progress 1s ease-out;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Hide scrollbars on mobile dock */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-x: auto;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reduce motion for accessibility and performance */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Optimize touch interactions */
+  .touch-action-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Better tap targets */
+  button,
+  [role="button"],
+  .cursor-pointer {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent zoom on input focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+/* GPU acceleration for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce complexity on low-end devices */
+@media (max-width: 480px) {
+  .backdrop-blur-md {
+    backdrop-filter: blur(4px);
+  }
+
+  .shadow-2xl {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+}

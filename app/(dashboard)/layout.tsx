@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/lib/firebase/use-auth"
 import { NavigationDock } from "@/components/dashboard/navigation-dock"
 import { Loader2 } from "lucide-react"
+import { useMobileDetection } from "@/hooks/use-mobile-detection"
 
-// Динамический импорт Aurora для избежания SSR проблем
-const Aurora = dynamic(() => import("@/components/ui/aurora"), { ssr: false })
+// Динамический импорт оптимизированной Aurora для избежания SSR проблем
+const AuroraOptimized = dynamic(() => import("@/components/ui/aurora-optimized"), { ssr: false })
 
 export default function DashboardLayout({
   children,
@@ -19,6 +20,7 @@ export default function DashboardLayout({
 }) {
   const { user, loading } = useAuth()
   const router = useRouter()
+  const { isMobile, isLowEndDevice } = useMobileDetection()
 
   useEffect(() => {
     if (!loading && !user) {
@@ -42,10 +44,11 @@ export default function DashboardLayout({
     <div className="relative h-screen w-screen overflow-hidden">
       {/* Aurora Background */}
       <div className="absolute inset-0 z-0">
-        <Aurora
+        <AuroraOptimized
           colorStops={["#00d8ff", "#7cff67", "#00d8ff"]}
-          amplitude={1.0}
-          blend={0.5}
+          amplitude={isMobile ? 0.8 : 1.0}
+          blend={isMobile ? 0.3 : 0.5}
+          disabled={isLowEndDevice}
         />
       </div>
 
