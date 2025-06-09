@@ -7,7 +7,7 @@
 
 ### 1. Откройте Firebase Console
 - Перейдите в [Firebase Console](https://console.firebase.google.com/)
-- Выберите проект `doors-24bf2`
+- Выберите проект `mebel-be602`
 
 ### 2. Перейдите в Authentication
 - В левом меню выберите **Authentication**

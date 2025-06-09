@@ -112,7 +112,7 @@ service firebase.storage {
 
           <div className="space-y-2">
             <p className="text-sm text-gray-600">
-              2. Выберите проект: <strong>doors-24bf2</strong>
+              2. Выберите проект: <strong>mebel-be602</strong>
             </p>
             <p className="text-sm text-gray-600">
               3. В левом меню выберите <strong>Storage</strong>

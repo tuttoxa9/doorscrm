@@ -60,7 +60,7 @@ service firebase.storage {
 ## Как применить правила
 
 1. Откройте Firebase Console (https://console.firebase.google.com/)
-2. Выберите ваш проект (doors-24bf2)
+2. Выберите ваш проект (mebel-be602)
 3. Перейдите в Storage → Rules
 4. Замените существующие правила на рекомендуемые выше
 5. Нажмите "Publish"
