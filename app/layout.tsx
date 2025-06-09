@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { FirebaseProvider } from "@/lib/firebase/firebase-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { FirebaseConnectionStatus } from "@/components/firebase-connection-status"
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] })
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <FirebaseProvider>
             {children}
             <Toaster />
+            <FirebaseConnectionStatus />
           </FirebaseProvider>
         </ThemeProvider>
       </body>

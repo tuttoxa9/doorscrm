@@ -30,8 +30,32 @@ if (typeof window !== "undefined") {
   }
 }
 
-const db = getFirestore(app)
-const storage = getStorage(app)
-const auth = getAuth(app)
+// Initialize Firebase services with error handling
+let db, storage, auth
+
+try {
+  db = getFirestore(app)
+  console.log("Firestore initialized successfully")
+} catch (error) {
+  console.error("Failed to initialize Firestore:", error)
+  throw error
+}
+
+try {
+  storage = getStorage(app)
+  console.log("Firebase Storage initialized successfully")
+  console.log("Storage bucket:", firebaseConfig.storageBucket)
+} catch (error) {
+  console.error("Failed to initialize Firebase Storage:", error)
+  throw error
+}
+
+try {
+  auth = getAuth(app)
+  console.log("Firebase Auth initialized successfully")
+} catch (error) {
+  console.error("Failed to initialize Firebase Auth:", error)
+  throw error
+}
 
 export { app, db, storage, auth, analyticsInstance }

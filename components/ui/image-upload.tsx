@@ -111,25 +111,46 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
       const productId = generateProductId()
 
       // Создаем уникальное имя файла
-      const fileName = `${Date.now()}-${file.name}`
+      const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
       const storageRef = ref(storage, `products/${productId}/${fileName}`)
 
-      // Загружаем файл
-      await uploadBytes(storageRef, file)
+      // Подготавливаем метаданные для файла
+      const metadata = {
+        contentType: file.type,
+        customMetadata: {
+          'uploadedBy': 'anonymous',
+          'originalName': file.name,
+          'productId': productId
+        }
+      }
+
+      console.log('Начинаем загрузку файла:', fileName)
+      console.log('Метаданные:', metadata)
+
+      // Загружаем файл с метаданными
+      const uploadResult = await uploadBytes(storageRef, file, metadata)
+      console.log('Файл успешно загружен:', uploadResult)
 
       // Получаем URL загруженного файла
       const downloadURL = await getDownloadURL(storageRef)
+      console.log('URL получен:', downloadURL)
 
       // Создаем новый документ продукта в Firestore
       const productRef = doc(db, "products", productId)
-      await setDoc(productRef, {
+      const productData = {
         id: productId,
         name: `Продукт ${new Date().toLocaleDateString()}`,
         images: [downloadURL],
         featured: true,
         createdAt: new Date(),
-        updatedAt: new Date()
-      })
+        updatedAt: new Date(),
+        fileName: fileName,
+        originalName: file.name,
+        fileSize: file.size
+      }
+
+      console.log('Сохраняем в Firestore:', productData)
+      await setDoc(productRef, productData)
 
       toast.success(`Изображение успешно загружено! ID продукта: ${productId}`)
 
@@ -144,9 +165,29 @@ export function ImageUpload({ onSuccess, inDock = false }: ImageUploadProps) {
       if (onSuccess) {
         onSuccess()
       }
-    } catch (error) {
-      console.error("Ошибка загрузки:", error)
-      toast.error("Ошибка при загрузке изображения")
+    } catch (error: any) {
+      console.error("Детальная ошибка загрузки:", error)
+      console.error("Код ошибки:", error.code)
+      console.error("Сообщение ошибки:", error.message)
+
+      // Более детальная обработка различных типов ошибок
+      let errorMessage = "Ошибка при загрузке изображения"
+
+      if (error.code === 'storage/unauthorized') {
+        errorMessage = "Нет доступа к хранилищу. Проверьте правила безопасности Firebase."
+      } else if (error.code === 'storage/canceled') {
+        errorMessage = "Загрузка была отменена"
+      } else if (error.code === 'storage/unknown') {
+        errorMessage = "Неизвестная ошибка Firebase Storage. Проверьте конфигурацию проекта."
+      } else if (error.code === 'storage/quota-exceeded') {
+        errorMessage = "Превышена квота хранилища"
+      } else if (error.code === 'storage/invalid-format') {
+        errorMessage = "Неверный формат файла"
+      } else if (error.code === 'storage/invalid-argument') {
+        errorMessage = "Неверные аргументы для загрузки"
+      }
+
+      toast.error(errorMessage)
     } finally {
       setUploading(false)
     }
