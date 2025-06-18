@@ -189,9 +189,9 @@ export default function ProductsPage() {
                     </TableCell>
                     <TableCell className="py-2 text-sm">{product.category}</TableCell>
                     <TableCell className="py-2 text-sm">
-                      {product.price?.min === product.price?.max
-                        ? `${product.price.min.toLocaleString()} BYN`
-                        : `${product.price?.min?.toLocaleString()} - ${product.price?.max?.toLocaleString()} BYN`}
+                      {product.price?.max
+                        ? `${product.price.min.toLocaleString()} - ${product.price.max.toLocaleString()} BYN`
+                        : `${product.price?.min?.toLocaleString()} BYN`}
                     </TableCell>
                     <TableCell className="py-2">
                       <div className="flex flex-wrap gap-1">

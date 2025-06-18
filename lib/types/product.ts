@@ -2,7 +2,7 @@ export interface Product {
   id: string
   name: string // Название товара
   category: string // Категория (вводится вручную)
-  price: { min: number; max: number } // Ценовой диапазон (BYN)
+  price: { min: number; max?: number } // Ценовой диапазон (BYN), max необязательна
   description: string // Описание
   colors: string[] // Доступные цвета
   images: string[] // Изображения (Firebase Storage)

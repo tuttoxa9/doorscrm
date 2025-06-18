@@ -124,7 +124,8 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
   }
 
   const onSubmit = async (data: any) => {
-    if (data.priceMin >= data.priceMax) {
+    // Проверяем цены только если указаны обе
+    if (data.priceMax && data.priceMin >= data.priceMax) {
       toast({
         variant: "destructive",
         title: "Ошибка",
@@ -140,7 +141,7 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
         category: data.category,
         price: {
           min: Number(data.priceMin),
-          max: Number(data.priceMax),
+          ...(data.priceMax && { max: Number(data.priceMax) }),
         },
         description: data.description,
         colors,
@@ -207,26 +208,26 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1">
             <Label htmlFor="priceMin" className="text-sm">
-              Мин. цена (BYN)
+              Цена (BYN) *
             </Label>
             <Input
               id="priceMin"
               type="number"
               className="h-8"
-              {...register("priceMin", { required: "Минимальная цена обязательна", min: 0 })}
+              {...register("priceMin", { required: "Цена обязательна", min: 0 })}
             />
             {errors.priceMin && <p className="text-xs text-destructive">{errors.priceMin.message as string}</p>}
           </div>
 
           <div className="space-y-1">
             <Label htmlFor="priceMax" className="text-sm">
-              Макс. цена (BYN)
+              Макс. цена (BYN) <span className="text-muted-foreground">(необязательно)</span>
             </Label>
             <Input
               id="priceMax"
               type="number"
               className="h-8"
-              {...register("priceMax", { required: "Максимальная цена обязательна", min: 0 })}
+              {...register("priceMax", { min: 0 })}
             />
             {errors.priceMax && <p className="text-xs text-destructive">{errors.priceMax.message as string}</p>}
           </div>

@@ -1,29 +1,20 @@
-# Firebase Configuration Migration
+# Модификация системы ценообразования
 
-## Tasks to complete:
-- [x] Find and update main Firebase configuration file
-- [x] Update Firebase Storage rules documentation
-- [x] Update Firebase Auth configuration
-- [x] Update any environment variables related to Firebase (no .env files found)
-- [x] Test Firebase connection (dev server started successfully)
-- [x] Update any Firebase service imports (they use relative imports from config)
-- [x] Check and update any Firebase admin configurations (no admin SDK found)
-- [x] Update project ID references throughout the codebase
-- [x] Test all Firebase functionality (project loads and builds successfully)
+## Задачи:
+- [x] Изменить интерфейс Product - сделать максимальную цену необязательной
+- [x] Обновить форму продукта - сделать поле максимальной цены необязательным
+- [x] Изменить валидацию - убрать требование max > min если max не указан
+- [x] Обновить отображение цены в компонентах
+- [x] Установить зависимости проекта
+- [x] Запустить dev сервер для тестирования
+- [ ] Протестировать создание товара с одной ценой
+- [ ] Создать версию с изменениями
+- [ ] Настроить Git репозиторий с предоставленным токеном
+- [ ] Сделать push изменений в Git
 
-## Migration Complete! ✅
-All Firebase configuration has been successfully migrated to the new account:
+## Описание изменений:
+Изменить систему ценообразования так, чтобы можно было указывать только минимальную цену для товара. Если указана только минимальная цена - она станет основной ценой товара.
+
+## Firebase Configuration (существующая):
 - Project ID: mebel-be602
-- All references updated throughout the codebase
-- Project builds and runs successfully
-
-## New Firebase Config:
-```
-apiKey: "AIzaSyDFpT1MQSqfa8SXG0fKRS_olUAheOJAEII"
-authDomain: "mebel-be602.firebaseapp.com"
-projectId: "mebel-be602"
-storageBucket: "mebel-be602.firebasestorage.app"
-messagingSenderId: "368556149445"
-appId: "1:368556149445:web:033463c32a4ee6a93c7eac"
-measurementId: "G-3H974WY264"
-```
+- Все сервисы настроены и работают
