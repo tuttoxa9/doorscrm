@@ -27,7 +27,7 @@ interface ChestFormProps {
 export function ChestForm({ chest, onSuccess }: ChestFormProps) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<string[]>(chest?.images || [])
-  const [colors, setColors] = useState<string[]>(chest?.colors || [])
+  const [colors, setColors] = useState<string[]>(chest?.colors || DEFAULT_COLORS)
   const [newColor, setNewColor] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
@@ -150,7 +150,7 @@ export function ChestForm({ chest, onSuccess }: ChestFormProps) {
           width: 40,
           height: 90,
         },
-        drawerCount: Number(data.drawerCount),
+        drawerCount: 3, // значение по умолчанию
         hasLock: data.hasLock,
         colors,
         images,
@@ -202,19 +202,7 @@ export function ChestForm({ chest, onSuccess }: ChestFormProps) {
 
 
 
-        <div className="space-y-2">
-          <Label htmlFor="drawerCount">Количество ящиков *</Label>
-          <Input
-            id="drawerCount"
-            type="number"
-            {...register("drawerCount", {
-              required: "Количество ящиков обязательно",
-              min: { value: 1, message: "Минимум 1 ящик" }
-            })}
-            placeholder="3"
-          />
-          {errors.drawerCount && <p className="text-sm text-red-500">{errors.drawerCount.message}</p>}
-        </div>
+
       </div>
 
 
@@ -237,23 +225,14 @@ export function ChestForm({ chest, onSuccess }: ChestFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="priceMax">Максимальная цена (BYN)</Label>
+          <Label htmlFor="priceMax">Максимальная цена (BYN) <span className="text-muted-foreground">(необязательно)</span></Label>
           <Input
             id="priceMax"
             type="number"
             step="0.01"
-            {...register("priceMax", {
-              validate: (value) => {
-                const minPrice = watch("priceMin")
-                if (value && Number(value) <= Number(minPrice)) {
-                  return "Максимальная цена должна быть больше минимальной"
-                }
-                return true
-              }
-            })}
+            {...register("priceMax")}
             placeholder="399.99"
           />
-          {errors.priceMax && <p className="text-sm text-red-500">{errors.priceMax.message}</p>}
         </div>
       </div>
 

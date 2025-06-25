@@ -27,7 +27,7 @@ interface ShelfFormProps {
 export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<string[]>(shelf?.images || [])
-  const [colors, setColors] = useState<string[]>(shelf?.colors || [])
+  const [colors, setColors] = useState<string[]>(shelf?.colors || DEFAULT_COLORS)
   const [newColor, setNewColor] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
@@ -150,8 +150,8 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
           width: 25,
           height: 60,
         },
-        shelfCount: Number(data.shelfCount),
-        maxWeight: Number(data.maxWeight),
+        shelfCount: 3, // значение по умолчанию
+        maxWeight: 10, // значение по умолчанию
         colors,
         images,
         inStock: data.inStock,
@@ -202,33 +202,7 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
 
 
 
-        <div className="space-y-2">
-          <Label htmlFor="shelfCount">Количество полок *</Label>
-          <Input
-            id="shelfCount"
-            type="number"
-            {...register("shelfCount", {
-              required: "Количество полок обязательно",
-              min: { value: 1, message: "Минимум 1 полка" }
-            })}
-            placeholder="3"
-          />
-          {errors.shelfCount && <p className="text-sm text-red-500">{errors.shelfCount.message}</p>}
-        </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="maxWeight">Максимальная нагрузка (кг) *</Label>
-          <Input
-            id="maxWeight"
-            type="number"
-            {...register("maxWeight", {
-              required: "Максимальная нагрузка обязательна",
-              min: { value: 1, message: "Минимум 1 кг" }
-            })}
-            placeholder="15"
-          />
-          {errors.maxWeight && <p className="text-sm text-red-500">{errors.maxWeight.message}</p>}
-        </div>
       </div>
 
 
@@ -251,23 +225,14 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="priceMax">Максимальная цена (BYN)</Label>
+          <Label htmlFor="priceMax">Максимальная цена (BYN) <span className="text-muted-foreground">(необязательно)</span></Label>
           <Input
             id="priceMax"
             type="number"
             step="0.01"
-            {...register("priceMax", {
-              validate: (value) => {
-                const minPrice = watch("priceMin")
-                if (value && Number(value) <= Number(minPrice)) {
-                  return "Максимальная цена должна быть больше минимальной"
-                }
-                return true
-              }
-            })}
+            {...register("priceMax")}
             placeholder="89.99"
           />
-          {errors.priceMax && <p className="text-sm text-red-500">{errors.priceMax.message}</p>}
         </div>
       </div>
 

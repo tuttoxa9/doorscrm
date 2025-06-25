@@ -26,7 +26,7 @@ interface ProductFormProps {
 export function ProductForm({ product, onSuccess }: ProductFormProps) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<string[]>(product?.images || [])
-  const [colors, setColors] = useState<string[]>(product?.colors || [])
+  const [colors, setColors] = useState<string[]>(product?.colors || DEFAULT_COLORS)
   const [newColor, setNewColor] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()

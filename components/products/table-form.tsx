@@ -27,7 +27,7 @@ interface TableFormProps {
 export function TableForm({ table, onSuccess }: TableFormProps) {
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<string[]>(table?.images || [])
-  const [colors, setColors] = useState<string[]>(table?.colors || [])
+  const [colors, setColors] = useState<string[]>(table?.colors || DEFAULT_COLORS)
   const [newColor, setNewColor] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
@@ -149,7 +149,7 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
           width: 80,
           height: 75,
         },
-        seatingCapacity: Number(data.seatingCapacity),
+        seatingCapacity: 4, // значение по умолчанию
         colors,
         images,
         inStock: data.inStock,
@@ -200,19 +200,7 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
 
 
 
-        <div className="space-y-2">
-          <Label htmlFor="seatingCapacity">Количество мест *</Label>
-          <Input
-            id="seatingCapacity"
-            type="number"
-            {...register("seatingCapacity", {
-              required: "Количество мест обязательно",
-              min: { value: 1, message: "Минимум 1 место" }
-            })}
-            placeholder="4"
-          />
-          {errors.seatingCapacity && <p className="text-sm text-red-500">{errors.seatingCapacity.message}</p>}
-        </div>
+
       </div>
 
 
@@ -235,23 +223,14 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="priceMax">Максимальная цена (BYN)</Label>
+          <Label htmlFor="priceMax">Максимальная цена (BYN) <span className="text-muted-foreground">(необязательно)</span></Label>
           <Input
             id="priceMax"
             type="number"
             step="0.01"
-            {...register("priceMax", {
-              validate: (value) => {
-                const minPrice = watch("priceMin")
-                if (value && Number(value) <= Number(minPrice)) {
-                  return "Максимальная цена должна быть больше минимальной"
-                }
-                return true
-              }
-            })}
+            {...register("priceMax")}
             placeholder="499.99"
           />
-          {errors.priceMax && <p className="text-sm text-red-500">{errors.priceMax.message}</p>}
         </div>
       </div>
 
