@@ -138,17 +138,17 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
     try {
       const shelfData: Omit<Shelf, "id"> = {
         name: data.name,
-        material: data.material,
-        mountType: data.mountType,
+        material: "Дерево",
+        mountType: "Настенная",
         price: {
           min: Number(data.priceMin),
           max: data.priceMax ? Number(data.priceMax) : undefined,
         },
         description: data.description,
         dimensions: {
-          length: Number(data.length),
-          width: Number(data.width),
-          height: Number(data.height),
+          length: 80,
+          width: 25,
+          height: 60,
         },
         shelfCount: Number(data.shelfCount),
         maxWeight: Number(data.maxWeight),
@@ -200,37 +200,7 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="material">Материал *</Label>
-          <Select onValueChange={(value) => setValue("material", value)} defaultValue={shelf?.material}>
-            <SelectTrigger>
-              <SelectValue placeholder="Выберите материал" />
-            </SelectTrigger>
-            <SelectContent>
-              {MATERIALS.map((material) => (
-                <SelectItem key={material} value={material}>
-                  {material}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="mountType">Тип крепления *</Label>
-          <Select onValueChange={(value) => setValue("mountType", value)} defaultValue={shelf?.mountType}>
-            <SelectTrigger>
-              <SelectValue placeholder="Выберите тип крепления" />
-            </SelectTrigger>
-            <SelectContent>
-              {SHELF_MOUNT_TYPES.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
         <div className="space-y-2">
           <Label htmlFor="shelfCount">Количество полок *</Label>
@@ -261,39 +231,7 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
         </div>
       </div>
 
-      {/* Размеры */}
-      <div className="space-y-2">
-        <Label>Размеры (см) *</Label>
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <Label htmlFor="length">Длина</Label>
-            <Input
-              id="length"
-              type="number"
-              {...register("length", { required: "Длина обязательна", min: 1 })}
-              placeholder="80"
-            />
-          </div>
-          <div>
-            <Label htmlFor="width">Ширина</Label>
-            <Input
-              id="width"
-              type="number"
-              {...register("width", { required: "Ширина обязательна", min: 1 })}
-              placeholder="25"
-            />
-          </div>
-          <div>
-            <Label htmlFor="height">Высота</Label>
-            <Input
-              id="height"
-              type="number"
-              {...register("height", { required: "Высота обязательна", min: 1 })}
-              placeholder="60"
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Цена */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

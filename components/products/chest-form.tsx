@@ -138,17 +138,17 @@ export function ChestForm({ chest, onSuccess }: ChestFormProps) {
     try {
       const chestData: Omit<Chest, "id"> = {
         name: data.name,
-        material: data.material,
-        handleType: data.handleType,
+        material: "Дерево",
+        handleType: "Круглые ручки",
         price: {
           min: Number(data.priceMin),
           max: data.priceMax ? Number(data.priceMax) : undefined,
         },
         description: data.description,
         dimensions: {
-          length: Number(data.length),
-          width: Number(data.width),
-          height: Number(data.height),
+          length: 80,
+          width: 40,
+          height: 90,
         },
         drawerCount: Number(data.drawerCount),
         hasLock: data.hasLock,
@@ -200,37 +200,7 @@ export function ChestForm({ chest, onSuccess }: ChestFormProps) {
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="material">Материал *</Label>
-          <Select onValueChange={(value) => setValue("material", value)} defaultValue={chest?.material}>
-            <SelectTrigger>
-              <SelectValue placeholder="Выберите материал" />
-            </SelectTrigger>
-            <SelectContent>
-              {MATERIALS.map((material) => (
-                <SelectItem key={material} value={material}>
-                  {material}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="handleType">Тип ручек *</Label>
-          <Select onValueChange={(value) => setValue("handleType", value)} defaultValue={chest?.handleType}>
-            <SelectTrigger>
-              <SelectValue placeholder="Выберите тип ручек" />
-            </SelectTrigger>
-            <SelectContent>
-              {HANDLE_TYPES.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
         <div className="space-y-2">
           <Label htmlFor="drawerCount">Количество ящиков *</Label>
@@ -247,39 +217,7 @@ export function ChestForm({ chest, onSuccess }: ChestFormProps) {
         </div>
       </div>
 
-      {/* Размеры */}
-      <div className="space-y-2">
-        <Label>Размеры (см) *</Label>
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <Label htmlFor="length">Длина</Label>
-            <Input
-              id="length"
-              type="number"
-              {...register("length", { required: "Длина обязательна", min: 1 })}
-              placeholder="80"
-            />
-          </div>
-          <div>
-            <Label htmlFor="width">Ширина</Label>
-            <Input
-              id="width"
-              type="number"
-              {...register("width", { required: "Ширина обязательна", min: 1 })}
-              placeholder="40"
-            />
-          </div>
-          <div>
-            <Label htmlFor="height">Высота</Label>
-            <Input
-              id="height"
-              type="number"
-              {...register("height", { required: "Высота обязательна", min: 1 })}
-              placeholder="90"
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Цена */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

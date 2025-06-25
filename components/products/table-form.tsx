@@ -137,17 +137,17 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
     try {
       const tableData: Omit<Table, "id"> = {
         name: data.name,
-        material: data.material,
-        shape: data.shape,
+        material: "Дерево",
+        shape: "Прямоугольный",
         price: {
           min: Number(data.priceMin),
           max: data.priceMax ? Number(data.priceMax) : undefined,
         },
         description: data.description,
         dimensions: {
-          length: Number(data.length),
-          width: Number(data.width),
-          height: Number(data.height),
+          length: 120,
+          width: 80,
+          height: 75,
         },
         seatingCapacity: Number(data.seatingCapacity),
         colors,
@@ -198,37 +198,7 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
           {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="material">Материал *</Label>
-          <Select onValueChange={(value) => setValue("material", value)} defaultValue={table?.material}>
-            <SelectTrigger>
-              <SelectValue placeholder="Выберите материал" />
-            </SelectTrigger>
-            <SelectContent>
-              {MATERIALS.map((material) => (
-                <SelectItem key={material} value={material}>
-                  {material}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="shape">Форма *</Label>
-          <Select onValueChange={(value) => setValue("shape", value)} defaultValue={table?.shape}>
-            <SelectTrigger>
-              <SelectValue placeholder="Выберите форму" />
-            </SelectTrigger>
-            <SelectContent>
-              {TABLE_SHAPES.map((shape) => (
-                <SelectItem key={shape} value={shape}>
-                  {shape}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
 
         <div className="space-y-2">
           <Label htmlFor="seatingCapacity">Количество мест *</Label>
@@ -245,39 +215,7 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
         </div>
       </div>
 
-      {/* Размеры */}
-      <div className="space-y-2">
-        <Label>Размеры (см) *</Label>
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <Label htmlFor="length">Длина</Label>
-            <Input
-              id="length"
-              type="number"
-              {...register("length", { required: "Длина обязательна", min: 1 })}
-              placeholder="120"
-            />
-          </div>
-          <div>
-            <Label htmlFor="width">Ширина</Label>
-            <Input
-              id="width"
-              type="number"
-              {...register("width", { required: "Ширина обязательна", min: 1 })}
-              placeholder="80"
-            />
-          </div>
-          <div>
-            <Label htmlFor="height">Высота</Label>
-            <Input
-              id="height"
-              type="number"
-              {...register("height", { required: "Высота обязательна", min: 1 })}
-              placeholder="75"
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Цена */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

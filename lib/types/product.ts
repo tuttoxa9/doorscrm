@@ -66,15 +66,9 @@ export interface Chest extends BaseItem {
 
 export const DEFAULT_COLORS = [
   "Белый",
-  "Черный",
-  "Коричневый",
-  "Серый",
-  "Бежевый",
-  "Орех",
-  "Дуб",
-  "Венге",
-  "Махагон",
-  "Вишня",
+  "Дуб сонома",
+  "Венге магия",
+  "Серый шифер",
 ]
 
 export const MATERIALS = [
