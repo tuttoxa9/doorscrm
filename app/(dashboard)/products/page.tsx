@@ -299,7 +299,7 @@ export default function ProductsPage() {
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="doors" className="flex items-center gap-2">
             <Package className="h-4 w-4" />
-            Двери ({products.length})
+            Шкафы ({products.length})
           </TabsTrigger>
           <TabsTrigger value="tables" className="flex items-center gap-2">
             <Package className="h-4 w-4" />
@@ -317,10 +317,10 @@ export default function ProductsPage() {
 
         <TabsContent value="doors" className="space-y-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-semibold">Двери</h2>
+            <h2 className="text-xl font-semibold">Шкафы</h2>
             <Button onClick={() => openAddDialog("doors")}>
               <Plus className="mr-2 h-4 w-4" />
-              Добавить дверь
+              Добавить шкаф
             </Button>
           </div>
           {loading ? (
@@ -343,7 +343,7 @@ export default function ProductsPage() {
               ))}
               {filteredProducts.length === 0 && !loading && (
                 <div className="col-span-full text-center py-8 text-muted-foreground">
-                  {searchQuery ? "Нет товаров, соответствующих поиску" : "Пока нет дверей в каталоге"}
+                  {searchQuery ? "Нет товаров, соответствующих поиску" : "Пока нет шкафов в каталоге"}
                 </div>
               )}
             </div>
@@ -461,7 +461,7 @@ export default function ProductsPage() {
         <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {dialogType === "doors" && (currentProduct ? "Редактировать дверь" : "Добавить дверь")}
+              {dialogType === "doors" && (currentProduct ? "Редактировать шкаф" : "Добавить шкаф")}
               {dialogType === "tables" && (currentTable ? "Редактировать стол" : "Добавить стол")}
               {dialogType === "shelves" && (currentShelf ? "Редактировать полку" : "Добавить полку")}
               {dialogType === "chests" && (currentChest ? "Редактировать комод" : "Добавить комод")}
