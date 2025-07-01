@@ -43,8 +43,7 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
       name: shelf?.name || "",
       material: shelf?.material || "",
       mountType: shelf?.mountType || "",
-      priceMin: shelf?.price?.min || 0,
-      priceMax: shelf?.price?.max || 0,
+      price: shelf?.price || 0,
       description: shelf?.description || "",
       length: shelf?.dimensions?.length || 0,
       width: shelf?.dimensions?.width || 0,
@@ -140,10 +139,7 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
         name: data.name,
         material: "Дерево",
         mountType: "Настенная",
-        price: {
-          min: Number(data.priceMin),
-          max: data.priceMax ? Number(data.priceMax) : undefined,
-        },
+        price: Number(data.price),
         description: data.description,
         dimensions: {
           length: 80,
@@ -208,32 +204,19 @@ export function ShelfForm({ shelf, onSuccess }: ShelfFormProps) {
 
 
       {/* Цена */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="priceMin">Минимальная цена (BYN) *</Label>
-          <Input
-            id="priceMin"
-            type="number"
-            step="0.01"
-            {...register("priceMin", {
-              required: "Минимальная цена обязательна",
-              min: { value: 0, message: "Цена не может быть отрицательной" }
-            })}
-            placeholder="49.99"
-          />
-          {errors.priceMin && <p className="text-sm text-red-500">{errors.priceMin.message}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="priceMax">Максимальная цена (BYN) <span className="text-muted-foreground">(необязательно)</span></Label>
-          <Input
-            id="priceMax"
-            type="number"
-            step="0.01"
-            {...register("priceMax")}
-            placeholder="89.99"
-          />
-        </div>
+      <div className="space-y-2">
+        <Label htmlFor="price">Цена (BYN) *</Label>
+        <Input
+          id="price"
+          type="number"
+          step="0.01"
+          {...register("price", {
+            required: "Цена обязательна",
+            min: { value: 0, message: "Цена не может быть отрицательной" }
+          })}
+          placeholder="49.99"
+        />
+        {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
       </div>
 
       {/* Описание */}

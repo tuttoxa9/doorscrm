@@ -149,10 +149,8 @@ export default function ProductsPage() {
     fetchAllData()
   }
 
-  const formatPrice = (price: { min: number; max?: number }) => {
-    return price.max
-      ? `${price.min.toLocaleString()} - ${price.max.toLocaleString()} BYN`
-      : `${price.min.toLocaleString()} BYN`
+  const formatPrice = (price: number) => {
+    return `${price.toLocaleString()} BYN`
   }
 
   const ItemCard = ({ item, type, onEdit, onDelete }: {

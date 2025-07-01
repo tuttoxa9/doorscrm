@@ -43,8 +43,7 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
       name: table?.name || "",
       material: table?.material || "",
       shape: table?.shape || "",
-      priceMin: table?.price?.min || 0,
-      priceMax: table?.price?.max || 0,
+      price: table?.price || 0,
       description: table?.description || "",
       length: table?.dimensions?.length || 0,
       width: table?.dimensions?.width || 0,
@@ -139,10 +138,7 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
         name: data.name,
         material: "Дерево",
         shape: "Прямоугольный",
-        price: {
-          min: Number(data.priceMin),
-          max: data.priceMax ? Number(data.priceMax) : undefined,
-        },
+        price: Number(data.price),
         description: data.description,
         dimensions: {
           length: 120,
@@ -206,32 +202,19 @@ export function TableForm({ table, onSuccess }: TableFormProps) {
 
 
       {/* Цена */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="priceMin">Минимальная цена (BYN) *</Label>
-          <Input
-            id="priceMin"
-            type="number"
-            step="0.01"
-            {...register("priceMin", {
-              required: "Минимальная цена обязательна",
-              min: { value: 0, message: "Цена не может быть отрицательной" }
-            })}
-            placeholder="299.99"
-          />
-          {errors.priceMin && <p className="text-sm text-red-500">{errors.priceMin.message}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="priceMax">Максимальная цена (BYN) <span className="text-muted-foreground">(необязательно)</span></Label>
-          <Input
-            id="priceMax"
-            type="number"
-            step="0.01"
-            {...register("priceMax")}
-            placeholder="499.99"
-          />
-        </div>
+      <div className="space-y-2">
+        <Label htmlFor="price">Цена (BYN) *</Label>
+        <Input
+          id="price"
+          type="number"
+          step="0.01"
+          {...register("price", {
+            required: "Цена обязательна",
+            min: { value: 0, message: "Цена не может быть отрицательной" }
+          })}
+          placeholder="299.99"
+        />
+        {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
       </div>
 
       {/* Описание */}

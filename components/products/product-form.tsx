@@ -39,8 +39,7 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
     defaultValues: {
       name: product?.name || "",
       category: product?.category || "",
-      priceMin: product?.price?.min || 0,
-      priceMax: product?.price?.max || 0,
+      price: product?.price || 0,
       description: product?.description || "",
       inStock: product?.inStock ?? true,
       featured: product?.featured ?? false,
@@ -124,25 +123,12 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
   }
 
   const onSubmit = async (data: any) => {
-    // Проверяем цены только если указаны обе
-    if (data.priceMax && data.priceMin >= data.priceMax) {
-      toast({
-        variant: "destructive",
-        title: "Ошибка",
-        description: "Минимальная цена должна быть меньше максимальной",
-      })
-      return
-    }
-
     setIsSubmitting(true)
     try {
       const productData = {
         name: data.name,
         category: data.category,
-        price: {
-          min: Number(data.priceMin),
-          ...(data.priceMax && { max: Number(data.priceMax) }),
-        },
+        price: Number(data.price),
         description: data.description,
         colors,
         images,
@@ -205,32 +191,17 @@ export function ProductForm({ product, onSuccess }: ProductFormProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1">
-            <Label htmlFor="priceMin" className="text-sm">
-              Цена (BYN) *
-            </Label>
-            <Input
-              id="priceMin"
-              type="number"
-              className="h-8"
-              {...register("priceMin", { required: "Цена обязательна", min: 0 })}
-            />
-            {errors.priceMin && <p className="text-xs text-destructive">{errors.priceMin.message as string}</p>}
-          </div>
-
-          <div className="space-y-1">
-            <Label htmlFor="priceMax" className="text-sm">
-              Макс. цена (BYN) <span className="text-muted-foreground">(необязательно)</span>
-            </Label>
-            <Input
-              id="priceMax"
-              type="number"
-              className="h-8"
-              {...register("priceMax", { min: 0 })}
-            />
-            {errors.priceMax && <p className="text-xs text-destructive">{errors.priceMax.message as string}</p>}
-          </div>
+        <div className="space-y-1">
+          <Label htmlFor="price" className="text-sm">
+            Цена (BYN) *
+          </Label>
+          <Input
+            id="price"
+            type="number"
+            className="h-8"
+            {...register("price", { required: "Цена обязательна", min: 0 })}
+          />
+          {errors.price && <p className="text-xs text-destructive">{errors.price.message as string}</p>}
         </div>
 
         <div className="space-y-1">
